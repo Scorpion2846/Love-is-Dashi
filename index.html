@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d20">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>Дашуля❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: #080d20;
+    }
+
+    body {
+      min-height: 100%;
+      background: #080d20;
+      color: white;
+      font-family: Georgia, serif;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ЗВЁЗДНОЕ НЕБО */
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at bottom,
+          #202c55 0%,
+          #0c122b 50%,
+          #030611 100%);
+      overflow: hidden;
+      contain: strict;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      will-change: opacity;
+      animation: twinkle 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.2;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ПАДАЮЩИЕ ЗВЁЗДЫ */
+
+    .shooting-star {
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      transform: rotate(-35deg);
+      animation: shooting 2.5s linear forwards;
+      opacity: 0;
+      will-change: transform, opacity;
+      border-radius: 50%;
+    }
+
+    .shooting-star.blue {
+      background: linear-gradient(90deg, #b3e5ff, transparent);
+      box-shadow: 0 0 10px #b3e5ff;
+    }
+
+    .shooting-star.pink {
+      background: linear-gradient(90deg, #ffb3d0, transparent);
+      box-shadow: 0 0 10px #ffb3d0;
+    }
+
+    .shooting-star.gold {
+      background: linear-gradient(90deg, #ffeb99, transparent);
+      box-shadow: 0 0 10px #ffeb99;
+    }
+
+    @keyframes shooting {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(-35deg);
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 1;
+      }
+
+      70% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate3d(-450px, 320px, 0) rotate(-35deg);
+        opacity: 0;
+      }
+    }
+
+    /* ОСНОВНОЕ СОДЕРЖИМОЕ */
+
+    main,
+    header,
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ПЕРВЫЙ ЭКРАН */
+
+    header {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding:
+        max(30px, env(safe-area-inset-top)) 18px max(30px, env(safe-area-inset-bottom));
+    }
+
+    .main-text {
+      font-size: clamp(27px, 7vw, 48px);
+      line-height: 1.45;
+      margin-bottom: 28px;
+      text-shadow: 0 0 20px rgba(160, 190, 255, 0.5);
+      animation: fadeIn 1.5s ease;
+    }
+
+    .slider {
+      width: min(84vw, 380px);
+      height: min(55vh, 480px);
+      height: min(55svh, 480px);
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 25px rgba(140, 160, 255, 0.25);
+      background: #151c36;
+      isolation: isolate;
+    }
+
+    .slider img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slider img.active {
+      opacity: 1;
+    }
+
+    /* ЗАГРУЗКА ФОТО */
+    .slider-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b9c8ff;
+      font-size: 14px;
+      background: #151c36;
+      z-index: 0;
+    }
+
+    .love-title {
+      margin-top: 28px;
+      font-size: clamp(25px, 6vw, 32px);
+      color: #ff8fb3;
+      font-weight: bold;
+      text-shadow: 0 0 15px #ff5b98;
+      letter-spacing: 1px;
+    }
+
+    .love-subtitle {
+      margin-top: 12px;
+      font-size: clamp(16px, 4.5vw, 19px);
+      color: #f5c9dc;
+      font-style: italic;
+    }
+
+    .scroll-hint {
+      margin-top: 30px;
+      color: #b9c8ff;
+      animation: bounce 1.5s infinite;
+      font-size: 15px;
+    }
+
+    /* КНОПКА МУЗЫКИ */
+    .music-btn {
+      position: fixed;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      right: 18px;
+      z-index: 9999;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(30, 40, 80, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(140, 160, 255, 0.4);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .music-btn:active {
+      transform: scale(0.92);
+    }
+
+    .music-btn.playing {
+      background: rgba(255, 100, 170, 0.85);
+      box-shadow: 0 0 25px rgba(255, 100, 170, 0.6);
+    }
+
+    /* БЕСКОНЕЧНАЯ ЛЕНТА */
+
+    .infinite-section {
+      padding: 40px 12px 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .love-stream {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .love-phrase {
+      font-size: clamp(24px, 6vw, 38px);
+      color: #ffb3d0;
+      font-weight: bold;
+      text-shadow: 0 0 15px rgba(255, 100, 170, 0.6);
+      padding: 22px 8px;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      animation: phraseAppear 1s ease;
+    }
+
+    /* РАЗНООБРАЗИЕ ФРАЗ */
+
+    .love-phrase.variant-1 {
+      color: #ffb3d0;
+      text-shadow: 0 0 15px rgba(255, 100, 170, 0.6);
+      font-size: clamp(24px, 6vw, 38px);
+    }
+
+    .love-phrase.variant-2 {
+      color: #b3e5ff;
+      text-shadow: 0 0 15px rgba(100, 200, 255, 0.6);
+      font-size: clamp(20px, 5vw, 30px);
+    }
+
+    .love-phrase.variant-3 {
+      color: #d4b3ff;
+      text-shadow: 0 0 15px rgba(180, 100, 255, 0.6);
+      font-size: clamp(26px, 7vw, 42px);
+    }
+
+    .love-phrase.variant-4 {
+      color: #ffeb99;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+      font-size: clamp(22px, 5.5vw, 34px);
+    }
+
+    .love-phrase.variant-5 {
+      color: #b3ffd9;
+      text-shadow: 0 0 15px rgba(100, 255, 180, 0.6);
+      font-size: clamp(18px, 4.5vw, 26px);
+    }
+
+    /* ХАОТИЧНЫЕ РЯДЫ СЕРДЕЧЕК */
+
+    .heart-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 13px;
+      max-width: 800px;
+      width: 100%;
+      padding: 8px;
+    }
+
+    .heart {
+      font-size: clamp(22px, 6vw, 30px);
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    .heart:nth-child(3n) {
+      animation-delay: 0.5s;
+    }
+
+    .heart:nth-child(4n) {
+      animation-delay: 1s;
+    }
+
+    .heart-row.random-spread {
+      justify-content: space-between;
+      padding: 8px 20px;
+    }
+
+    .heart-row.random-spread .heart:nth-child(even) {
+      transform: translateY(10px);
+    }
+
+    .heart-row.random-spread .heart:nth-child(odd) {
+      transform: translateY(-10px);
+    }
+
+    .heart-row.big-hearts .heart {
+      font-size: clamp(32px, 8vw, 44px);
+    }
+
+    .heart-row.small-hearts .heart {
+      font-size: clamp(14px, 4vw, 20px);
+      gap: 8px;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes phraseAppear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* МАЛЕНЬКИЕ ЭКРАНЫ */
+
+    @media (max-width: 390px) {
+      .main-text {
+        font-size: 27px;
+      }
+
+      .slider {
+        width: 86vw;
+        height: 48vh;
+        height: 48svh;
+      }
+
+      .love-stream {
+        gap: 12px;
+      }
+
+      .heart-row {
+        gap: 10px;
+      }
+    }
+
+    /* ГОРИЗОНТАЛЬНЫЙ РЕЖИМ */
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      header {
+        min-height: auto;
+        padding: 35px 15px;
+      }
+
+      .slider {
+        height: 65vh;
+        width: 220px;
+      }
+
+      .main-text {
+        font-size: 25px;
+      }
+    }
+
+    /* УМЕНЬШЕНИЕ АНИМАЦИЙ */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sky" id="sky"></div>
+
+  <header>
+
+    <div class="main-text">
+      Ты можешь сколько угодно говорить,<br>
+      что любишь меня сильнее...<br>
+      Но я всё равно не собираюсь проигрывать😜❤️<br>
+    </div>
+
+    <div class="slider" id="slider">
+      <div class="slider-placeholder" id="sliderPlaceholder">Загрузка фото...</div>
+      <img src="photo1.jpg" class="active" alt="Фото 1" data-index="0">
+      <img src="photo2.jpg" alt="Фото 2" data-index="1">
+      <img src="photo3.jpg" alt="Фото 3" data-index="2">
+    </div>
+
+    <div class="love-title">
+      ❤️ Я ТЕБЯ ЛЮБЛЮ ❤️
+    </div>
+
+    <div class="love-subtitle">
+      (бесконечно сильнее чем ты 😜)
+    </div>
+
+    <div class="scroll-hint">
+      Листай вниз...
+      <br>↓
+    </div>
+
+  </header>
+
+  <section class="infinite-section">
+    <div class="love-stream" id="loveStream"></div>
+  </section>
+
+  <!-- КНОПКА МУЗЫКИ -->
+  <button class="music-btn" id="musicBtn" aria-label="Включить музыку">🎵</button>
+
+  <!-- АУДИО -->
+  <!-- Файл должен называться music.mp3 и лежать в той же папке -->
+  <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display:none;">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+
+    /* === ФОНОВАЯ МУЗЫКА === */
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    let musicStarted = false;
+
+    bgMusic.volume = 0.5;
+
+    function updateMusicBtn(playing) {
+      if (playing) {
+        musicBtn.textContent = '🔊';
+        musicBtn.classList.add('playing');
+        musicBtn.setAttribute('aria-label', 'Выключить музыку');
+      } else {
+        musicBtn.textContent = '🎵';
+        musicBtn.classList.remove('playing');
+        musicBtn.setAttribute('aria-label', 'Включить музыку');
+      }
+    }
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicStarted = true;
+          updateMusicBtn(true);
+        }).catch((err) => {
+          console.log('Ошибка воспроизведения:', err);
+          updateMusicBtn(false);
+        });
+      } else {
+        bgMusic.pause();
+        updateMusicBtn(false);
+      }
+    }
+
+    // Кнопка — главный и самый надёжный способ запуска на iOS
+    musicBtn.addEventListener('click', toggleMusic);
+    musicBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      toggleMusic();
+    }, { passive: false });
+
+    // Пытаемся запустить при первом взаимодействии (для Android/десктопа)
+    function tryAutoplay() {
+      if (musicStarted || !bgMusic.paused) return;
+      bgMusic.play().then(() => {
+        musicStarted = true;
+        updateMusicBtn(true);
+        removeAutoplayListeners();
+      }).catch(() => {
+        // Тихо игнорируем — пользователь нажмёт кнопку
+      });
+    }
+
+    function removeAutoplayListeners() {
+      document.removeEventListener('touchend', tryAutoplay);
+      document.removeEventListener('click', tryAutoplay);
+    }
+
+    document.addEventListener('touchend', tryAutoplay, { passive: true });
+    document.addEventListener('click', tryAutoplay);
+
+    // Пробуем сразу (сработает только если браузер разрешает)
+    tryAutoplay();
+
+
+    /* ОПТИМИЗАЦИЯ АНИМАЦИЙ */
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+    /* ЗВЁЗДНОЕ НЕБО */
+    const sky = document.getElementById('sky');
+    const isMobile = window.innerWidth < 600;
+    const starCount = isMobile ? 70 : 180;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+
+      const size = Math.random() * 2 + 1;
+
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+
+      sky.appendChild(star);
+    }
+
+
+    /* ПАДАЮЩИЕ ЗВЁЗДЫ */
+    function createShootingStar() {
+      if (document.hidden || reducedMotion) return;
+
+      const count = Math.random() > 0.8 ? 2 : 1;
+
+      for (let i = 0; i < count; i++) {
+        const shooting = document.createElement('div');
+        shooting.className = 'shooting-star';
+
+        const colorRoll = Math.random();
+        if (colorRoll > 0.75) shooting.classList.add('blue');
+        else if (colorRoll > 0.5) shooting.classList.add('pink');
+        else if (colorRoll > 0.25) shooting.classList.add('gold');
+
+        shooting.style.left = (Math.random() * 100 + 20) + '%';
+        shooting.style.top = (Math.random() * 40) + '%';
+        shooting.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+
+        sky.appendChild(shooting);
+
+        setTimeout(() => shooting.remove(), 4000);
+      }
+    }
+
+    let shootingTimer;
+    function scheduleShootingStar() {
+      createShootingStar();
+      const nextTime = isMobile ? (2500 + Math.random() * 2500) : (1200 + Math.random() * 1300);
+      shootingTimer = setTimeout(scheduleShootingStar, nextTime);
+    }
+
+    shootingTimer = setTimeout(scheduleShootingStar, 1000);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearTimeout(shootingTimer);
+        sky.querySelectorAll('.shooting-star').forEach(
+          star => star.remove()
+        );
+      } else {
+        shootingTimer = setTimeout(scheduleShootingStar, 1000);
+      }
+    });
+
+
+    /* СЛАЙДЕР ФОТОГРАФИЙ — надёжная загрузка */
+    const slider = document.getElementById('slider');
+    const sliderPlaceholder = document.getElementById('sliderPlaceholder');
+    const photos = Array.from(slider.querySelectorAll('img'));
+    let currentPhoto = 0;
+    let loadedCount = 0;
+    let sliderStarted = false;
+
+    // Предзагружаем все фото принудительно через new Image()
+    // Это гарантирует, что они попадут в кэш даже на мобильных
+    const preloaded = photos.map((img, i) => {
+      return new Promise((resolve) => {
+        const pre = new Image();
+        pre.onload = () => {
+          loadedCount++;
+          // Если оригинальный img ещё не загружен — подставим src
+          if (!img.complete || img.naturalWidth === 0) {
+            img.src = pre.src;
+          }
+          resolve(true);
+        };
+        pre.onerror = () => {
+          console.warn('Не удалось загрузить фото', i + 1);
+          resolve(false);
+        };
+        // Добавляем cache-busting не надо, просто грузим
+        pre.src = img.src;
+      });
+    });
+
+    function hidePlaceholderIfReady() {
+      if (loadedCount > 0) {
+        sliderPlaceholder.style.display = 'none';
+      }
+    }
+
+    Promise.all(preloaded).then(() => {
+      hidePlaceholderIfReady();
+      if (loadedCount === 0) {
+        sliderPlaceholder.textContent = 'Фото не загрузились 😔';
+      }
+      startSlider();
+    });
+
+    // Fallback: если через 5 секунд хоть одно фото загрузилось — прячем заглушку
+    setTimeout(hidePlaceholderIfReady, 5000);
+
+    function startSlider() {
+      if (sliderStarted) return;
+      if (photos.length < 2) return;
+      sliderStarted = true;
+
+      setInterval(() => {
+        if (document.hidden) return;
+        photos[currentPhoto].classList.remove('active');
+        currentPhoto = (currentPhoto + 1) % photos.length;
+        photos[currentPhoto].classList.add('active');
+      }, 3000);
+    }
+
+
+    /* БЕСКОНЕЧНАЯ ЛЕНТА ЛЮБВИ */
+    const loveStream = document.getElementById('loveStream');
+
+    // --- ШУТКИ ---
+    const jokes = [
+      'Я не толстею, я просто аккумулирую твою любовь в виде запасов на зиму 🐻',
+      'Даже если откормишь меня до 200 кг — сила притяжения между нами станет только больше 😂',
+      'Ты не откармливаешь меня, ты готовишь меня к суровым зимним объятиям 🧸'
+    ];
+    let jokeIndex = 0;
+
+    // --- СПЕЦИАЛЬНАЯ ФРАЗА ---
+    const specialPhraseText = 'эта лента бесконечна как и моя любовь 💖';
+    let specialPhraseShown = false;
+
+    // --- ЗА ЧТО ЛЮБЛЮ ---
+    const reasons = [
+      'За твою улыбку, которая делает мой день лучше❤️',
+      'За твои красивые как космос глаза❤️',
+      'За твой голос, который я готов слушать бесконечно❤️',
+      'За твою заботу и желание всегда меня накормить❤️',
+      'За твою нежность, которую я чувствую даже на расстоянии❤️',
+      'За то, что с тобой я могу быть самим собой❤️',
+      'За твои милые привычки, которые делают тебя особенной❤️',
+      'За каждое твоё сообщение, от которого я улыбаюсь❤️',
+      'За то, как ты умеешь поднимать мне настроение❤️',
+      'За твои объятия, в которых хочется остаться навсегда❤️',
+      'За то, что даже обычные моменты с тобой становятся особенными❤️',
+      'За то, что ты умеешь заставить меня чувствовать себя любимым❤️',
+      'И просто за то, что ты - это ты. Мне не нужна ни одна другая причина, чтобы любить тебя❤️'
+    ];
+    let reasonIndex = 0;
+
+    const phrases = [
+      'бесконечно… ❤️', 'сильнее… 💗', 'чем ты… 💕', 'и ещё сильнее… 💖',
+      'бесконечно… ❤️', 'и ещё… 💘', 'всегда… ♾️', 'с каждой секундой всё сильнее… 💓',
+      'больше, чем вчера… ❤️', 'и меньше, чем завтра… 💗', 'до самой Луны и обратно… 🌙',
+      'сильнее всех слов… 💞', 'каждую минуту… 💖', 'каждую секунду… 💘',
+      'больше всех звёзд на небе… ✨', 'до бесконечности и дальше… ♾️',
+      'ты — моё счастье… 🥹', 'ты — мой целый мир… 🌍', 'только ты и всегда ты… ❤️',
+      'сильнее расстояний… 💕', 'сильнее времени… ⏳', 'без всяких причин… 💗',
+      'просто потому что ты — это ты… 🥰', 'каждым ударом сердца… ❤️',
+      'в каждом моём дне… 🌸', 'в каждом моём сне… 💭', 'в каждом биении сердца… 💓',
+      'больше, чем можно представить… 💖', 'и даже ещё больше… 💘',
+      'сегодня, завтра и всегда… ♾️', 'ты — моё самое любимое чудо… ✨',
+      'я выбираю тебя снова и снова… ❤️', 'ты — моя самая красивая случайность… 💗',
+      'до последней звезды… 🌟', 'до последнего вздоха… 💞',
+      'и ни капельки не меньше… ❤️', 'моя любовь не знает границ… ♾️',
+      'просто люблю. Очень. Сильно. Тебя… ❤️'
+    ];
+
+    const symbols = ['❤️', '💕', '💗', '💖', '💘', '💓', '💞', '💝', '🥰', '💟', '🌸', '🤍', '💜', '💙'];
+
+    let phraseIndex = 0;
+    let totalBlocksCreated = 0;
+    let blocksSinceLastJoke = 0;
+    let isAdding = false;
+
+    function addLoveBlock() {
+      const fragment = document.createDocumentFragment();
+      const variant = Math.floor(Math.random() * 5) + 1;
+
+      if (Math.random() > 0.2) { // 80% шанс на текст
+        const phrase = document.createElement('div');
+        phrase.className = `love-phrase variant-${variant}`;
+
+        if (!specialPhraseShown && totalBlocksCreated >= 30 && Math.random() < 0.3) {
+          phrase.textContent = specialPhraseText;
+          specialPhraseShown = true;
+        } else if (jokeIndex < jokes.length && totalBlocksCreated > 12 && blocksSinceLastJoke > 4 && Math.random() < 0.15) {
+          phrase.textContent = jokes[jokeIndex];
+          jokeIndex++;
+          blocksSinceLastJoke = 0;
+        } else if (reasonIndex < reasons.length && Math.random() < 0.2) {
+          phrase.textContent = reasons[reasonIndex];
+          reasonIndex++;
+          blocksSinceLastJoke++;
+        } else {
+          phrase.textContent = phrases[phraseIndex];
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          blocksSinceLastJoke++;
+        }
+
+        fragment.appendChild(phrase);
+      } else {
+        blocksSinceLastJoke++;
+      }
+
+      // Сердечки
+      const hearts = document.createElement('div');
+      hearts.className = 'heart-row';
+
+      const rowStyle = Math.random();
+      if (rowStyle > 0.8) hearts.classList.add('big-hearts');
+      else if (rowStyle > 0.6) hearts.classList.add('small-hearts');
+      else if (rowStyle > 0.4) hearts.classList.add('random-spread');
+
+      const count = 12 + Math.floor(Math.random() * 17);
+
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        hearts.appendChild(heart);
+      }
+
+      fragment.appendChild(hearts);
+      loveStream.appendChild(fragment);
+
+      totalBlocksCreated++;
+    }
+
+
+    /* ПЕРВЫЕ БЛОКИ */
+    for (let i = 0; i < 5; i++) {
+      addLoveBlock();
+    }
+
+
+    /* ПОДГРУЗКА ПРИ ПРОКРУТКЕ */
+    const scrollObserver = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting) && !isAdding) {
+        isAdding = true;
+
+        const blocksToAdd = 2 + Math.floor(Math.random() * 3);
+
+        for (let i = 0; i < blocksToAdd; i++) {
+          addLoveBlock();
+        }
+
+        setTimeout(() => {
+          isAdding = false;
+        }, 200);
+      }
+    }, {
+      rootMargin: '800px'
+    });
+
+    /* ПРЕДОХРАНИТЕЛЬ: если докрутили до самого низа — добавляем ещё */
+    window.addEventListener('scroll', () => {
+      if (isAdding) return;
+
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // Если до конца страницы осталось меньше 1000px
+      if (scrollBottom > docHeight - 1000) {
+        isAdding = true;
+        const blocksToAdd = 3 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < blocksToAdd; i++) {
+          addLoveBlock();
+        }
+        setTimeout(() => {
+          isAdding = false;
+        }, 200);
+      }
+    }, { passive: true });
+
+    const scrollTrigger = document.createElement('div');
+    scrollTrigger.style.height = '1px';
+    loveStream.after(scrollTrigger);
+
+    scrollObserver.observe(scrollTrigger);
+
+  </script>
+
+</body>
+
+</html>
